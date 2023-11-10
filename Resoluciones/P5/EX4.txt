@@ -1,0 +1,31 @@
+Planta industrial. Considere la siguiente especificacion de una realcion uno/muchos entre alarmas y sensores de una planta industrial:
+Un sensor puede estr asociadoa muchas alarmas y una alarma puede tener muchos sensores asociados.
+
+
+Para el inv de rep necesitamos que todos los sensores conectados a alarmas, sean sensores existentes y
+que todas las alarmas conectadas a sensores sean alarmas existentes
+
+pred InvRep(p': PlantaImpl){
+    forAll a in p'.sensores.values() : 
+            a in p'.alarmas.keys()
+    &&
+    forAll s in p'.alarmas.values() :
+            s in p'.sensores.keys()
+    &&
+    forAll s in p'.sensores :
+        forAll a in p'.sensores[s]:
+            s in p'.alarmas[a]
+    &&
+    forAll a in p'.alarmas :
+        forAll s in p'.alarmas[a]:
+            a in p'.sensores[a]
+    
+}
+
+Ya nos garantizamos el cubrir la seguridad de la bidireccionalidad de ambos atributos en la implementacion con el InvRep.
+Simplemente ahora queda asociar los observadores
+
+funcAbs(p': PlantaImpl) : Planta {
+    p : Planta |
+        p.alarmas = p'.alarmas.keys() && p.sensores = p.sensores
+}

@@ -1,0 +1,25 @@
+Planilla de actividades. Un consultor independiente desea mantener
+una planilla con las actividades que realiza cada mes en cada uno de los proyectos en los que participa.
+
+/**************************************************************************************************************/
+
+De una lado en la planilla tenemos todos diccionrios dependientes de la key Actividad. 
+Esto en el modulo lo vemos implementado en un solo diccionario.
+
+
+
+Aca lo unico que tenemos separado son las horas que se pueden por mes. Necesitamos que estas esten a la par con las horas que tenemos en detalle
+
+pred InvRep(p' : PlanillaImpl){
+    forAll a in p'.detalle |
+        horasPorMes[p'.detalle[a].proyecto][p'.detalle[a].mes]  == p'.detalle[a].horas
+}
+
+
+aux FuncAbs(p' : PlanillaImpl) : Planilla {
+    p : Planilla |
+        p.actividades = p'.detalle.keys() 
+    &&  (forAll a in p.actividades)(p'.detalle[a].Proyecto == p.proyectoDe[a])
+    &&  (forAll a in p.actividades)(p'.detalle[a].mes == p.mesDe[a])
+    &&  (forAll a in p.actividades)(p'.detalle[a].horas == p.horas[a])
+}

@@ -1,0 +1,50 @@
+TAD ColaDePrioridad {
+    OBS heap: seq<int>
+    OBS size: int
+
+    proc nuevaCola():ColaDePrioridad{
+        asegura res.heap = [];
+        asegura res.size = 0;
+    }
+
+    proc nuevaCola(in s: seq<int>):ColaDePrioridad{
+        asegura forAll v in s | v in res.heap && cant(v, res.heap) == cant(v, s);
+        asegura | res.heap | = | s |
+        asegura res.size = | s |
+        asegura bienOrdenado(res.heap)
+    }
+
+    pred bienOrdenado(in s: seq<int>) {
+        forAll i in int | 
+            (0 <= i < s.size && H_i = i*2+1 && H_i < s.size) -> 
+                s[i] <= s[H_i] // Esto asumiendo que es minHeap
+        forAll i in int | 
+            (0 <= i < s.size && H_d = i*2+2 && H_d < s.size) -> 
+                s[i] <= s[H_d] // Esto asumiendo que es minHeap
+    }
+
+    proc desencolar(inout h: ColaDePrioridad):int{
+        requiere bienOrdenado(h.heap)
+        asegura forAll i in int | 
+                    (0 <= i < h.size) -> h.heap[i] in old(h).heap
+        asegura h.size = old(h).size-1
+        asegura res = old(h).heap[0]
+        asegura forAll val in h.heap | 
+                    val != res -> cantVeces(val, h.heap) == cantVeces(val, Old(h).heap)
+        asegura cantVeces(res, h.heap) == cantVeces(res, Old(h).heap) - 1
+        asegura bienOrdenado(h.heap)
+    }
+
+    proc agregar (inout h: ColaDePrioridad, in elem: int){
+        requiere bienOrdenado(h.heap)
+        asegura forAll i in int | 
+                    (0 <= i < Old(h).size) -> Old(h).heap[i] in h.heap
+        asegura h.size = old(h).size + 1
+        asegura cantVeces(elem, h.heap) + 1 == cantVeces(elem, Old(h).heap)
+        asegura forAll val in Old(h).heap | 
+                    val != elem -> cantVeces(val, h.heap) == cantVeces(val, Old(h).heap)
+        asegura bienOrdenado(h.heap) 
+    }
+
+
+}

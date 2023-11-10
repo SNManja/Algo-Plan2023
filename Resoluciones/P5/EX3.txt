@@ -1,0 +1,26 @@
+Se quiere implementar el TAD cola acotada, siendo una cola que puede contener a lo sumo n elementos. Con buffer circular
+
+pred InvRep(c': ColaAcotada){
+    0<= inicio, fin < elems.size() 
+}
+
+
+ 
+aux FuncAbs (c': ColaAcotadImp) : ColaAcotada{
+    c: ColaAcotada | 
+        if c'.inicio <= c'.fin then
+            c.size() = fin-inicio
+        else 
+            c.size() = c'size()-inicio + fin
+        fi
+    &&
+        (elem in c.s)(
+            if c'.inicio <= c'.fin then
+                elem in (C'.elems[inicio::fin]) && cantVeces(elem, C'.elems[inicio::fin]) == cantVeces(elem, c.s)
+            else 
+                elem in (C'.elems[inicio::C'.elems.size()] ++ C'.elems[0::fin]) && cantVeces(elem, C'.elems[inicio::C'.elems.size()] ++ C'.elems[0::fin]) == cantVeces(elem, c.s)
+            fi
+        )
+    &&
+        C.cap == C'.elems.size()
+}
