@@ -21,6 +21,15 @@ public class EX7 {
             }
         }
 
+        /*
+         * 
+         * pred InvRep(arr: Arr<Nodo>){
+         * forAll i in Z : 0<= i < i * 2 + 1 < arr.size() => (arr[i] >= arr[i * 2 + 1])
+         * &&
+         * forAll i in Z : 0<= i < i * 2 + 2 < arr.size() => (arr[i] >= arr[i * 2 + 2])
+         * }
+         * 
+         */
         public boolean invariante() { // Esta bien que el invariante este aca? o tiene q ser especificado
             return cota <= heap.length && puntero <= heap.length && cota >= 0 && puntero >= 0 && bienOrdenado(heap);
         }

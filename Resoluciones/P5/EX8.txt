@@ -1,0 +1,34 @@
+Colegio secundario.
+
+TAD Secundario {
+    obs estudiantes : conj<Estudiante>,
+    obs faltas: dict<Estudiante, int>,
+    obs notas: dict<Estudiante, seq>
+}
+
+modulo SecundarioImpl implementa Secundario {
+    var estudiantes : Conjunto<Estudiante>, // Todos los estudiantes del colegio secundario
+    var faltas : Diccionario<Estudiante, int>, // Faltas por el momento
+    var notas : Array<Conj<Estudiante>>, // La posicion iesima de los estudiantes tienen la nota i
+    var notasPorEstudiante : Diccionario<Estudiante, Array<int>> // Por cada estudiante la cantidad de nota con valor i-esimo
+}
+
+1. La nota va de 0 a 10 asi que el largo de |notas| = 10.
+2. Cada estudiante tiene su set de notas entonces |notasPorEstudiante| = |estudiantes| y cada array dentro tiene largo 10 
+3. En todo valor i-esimo de notas, si hay un estudiante, notasPorEstudiante[estudiante en cuestion][i] >= 1
+4. Tambien tener en cuenta que la cantidad de notas de cada estudiante tiene que ser mayor a 0
+
+
+InvRep( s' : SecundarioImpl ) {
+    faltas.size() == estudiantes.size() &&
+    notasPorEstudiante.size() == estudiantes.size() &&
+    forAll k in Estudiantes : k in notasPorEstudiantes ==> (notasPorEstudiante[k].size() == 10 && (forAll i in int : 0 <= i < notasPorEstudiante[k].size() && notasPorEstudiante[k][i] >= 0)) &&
+    forAll nota in int : 0 <= nota <= 10 => (forAll e in Estudiantes : e in notas[nota] => notasPorEstudiante[e][nota] >= 1)
+}
+
+FuncAbs(s' : SecundarioImpl ){
+    s : Secundario |
+        s.estudiantes = s'.estudiantes &&
+        s.faltas = s'.faltas &&
+        forAll e in Estudiantes : e in s.estudiantes ==> (forAll notas in int : (0<= notas <= 10) ==> cantApariciones(s'.notasPorEstudiante[e][notas], nota) == cantApariciones(s.notas[e]))
+}

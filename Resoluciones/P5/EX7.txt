@@ -1,0 +1,25 @@
+Oficina estatal. 
+
+Cada tramite tiene un ID y se le asigna una categoria al ingresar
+
+
+
+
+1. Tramite con ID unico y categoria asociada
+2. Todos tramite que esta en pendPrioritarios esta en pendientes
+3. Todo tramite que este en pendiente y que su categoria este en prioritarios, va a estar en pendPrioritarios
+4. Si t esta en tramites, entonces va a estar contenido en una categoria
+
+
+InvRep(c' : OficinaImpl){
+    forAll t in Id : t in prioritarios => t in pendPrioritarios &&
+    forAll t in Id : t in pendientes && (exists cat in Categoria : t in tramCat[cat] && cat in catPrioritaria ) ==> t in pendPrioritarios &&
+    forAll t in Id : t in tramites =>( exists a in Categoria : t in tramCat[a]  && forAll a,b in Categoria : !(t in tramCat[a] && t in tramCat[b]))
+}
+
+FuncAbs(c' : OficinaImpl) : Oficina {
+    c : Oficina |
+        c.tramitesPend = c'.pendientes &&
+        c.catPrioritarias = c'.catPrioritarias && 
+        forAll t in Id : t in c'.tramites => c'.tramites[t] in c.categorias && c.categoriaDe[t] = c'.tramites[t]
+}

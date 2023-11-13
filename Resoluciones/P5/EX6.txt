@@ -1,0 +1,46 @@
+Alta fiesta. 
+
+Invitados llegan en grupos de cantidades diferentes, puede ser individuo
+Todo grupo tiene que tener un regalo como minimo, si no no entran
+para entrar tienen que haber sido invitadas las personas.
+Cada grupo tiene un nombre y se quiere saber el nombre del mas numeroso
+Registro de todos los regalos, junto con el grupo que lo hizo
+Se quiere saber en todo momento quienes estan en la fiesta
+
+
+modulo AltaFiestaImpl implementa AltaFiesta {
+    var invitados: Conjunto<Persona>
+    var presentes: Conjunto<Persona>
+    var grupoDe: Diccionario<Grupo, Conjunto<Persona>>
+    var regaloDeGrupo: Diccionario<Grupo, Regalo>
+}
+Persona es string
+Grupo es string
+Regalo es string
+
+
+Teniendo esto, sabemos que:
+1. Todo presente esta en invitados
+2. Para cada elemento de grupoDe, si una persona esta en un grupo a, la misma no puede estar en un grupo b
+3. Para cada elemento de de grupoDe hay regalo asignado en regaloDeGrupo
+4. Toda persona en un grupo esta presente
+
+
+InvRep(c' : AltaFiestaImpl) {
+    forall p in Persona : (p in presentes ==> (p in invitados && (exists g in Grupo : g in grupoDe && p in grupoDe[g]))) &&
+    forall a,b in Grupo : (forAll p in Persona : p in GrupoDe[a] => !(p in grupoDe[b]))  &&
+    forall g in Grupo : g in grupoDe <==> g in regaloDeGrupo &&
+    forall g in Grupo : (g in Grupo <==> (forAll p in Persona : p in GrupoDe[g] => p in presentes))
+}
+
+funcAbs (c' : AltaFiestaImpl) : AltaFiesta {
+    c : AltaFiesta |
+            c.invitados = c'.invitados &&
+            c'.presentes = c.invitados XOR c.pendientes &&
+            (g in Grupo : (k in Persona : k in c'.presentes && k in c'.grupoDe[g] => c.grupoDe[k] = g && c'.regaloDe[k] = c'.regaloDeGrupo[g])) 
+}
+
+
+
+
+

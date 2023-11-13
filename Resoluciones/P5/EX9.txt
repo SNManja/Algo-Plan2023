@@ -1,0 +1,43 @@
+Fila de banco.
+
+TAD Fila {
+    obs fila: seq<Persona>
+    obs atendidos: conj<Persona>
+    obs colados: conj<Persona>
+    obs retirados: conj<Persona>
+
+    ...
+}
+
+modulo FilaImpl implementa Fila {
+    var entraron: Conjunto<Persona>
+    var fila: Cola<Persona>
+    var colados: Conjunto<Persona>
+    var atendidos: Conjunto<Persona>
+}
+
+Analisis del tad:
+Se abre la ventailla con todo vacio.
+Puede un atendido volver a entrar a la fila
+Se pueden colar en la fila y pueden salir
+
+
+En el invariante tendriamos:
+1. Todo valor que estuvo o esta en fila, colados y atendidos tiene que estar en entraron.
+2. Todo valor en colados esta en fila
+3. Pueden haber un valor que este tanto en atendidos como en la fila al mismo tiempo.
+4. Una persona no puede estar mas de una vez en la fila (no hay duplicados). Si puede volver.
+
+InvRep(F' : FilaImpl) {
+    forAll p in Personas : p in F'.fila || p in F'.atendidos ==> p in F'.entraron &&
+    forAll p in Personas : p in F'.colados ==> p in F'.fila  &&
+    forAll p in Personas : p in F'.fila ==> cantVeces(p, F'.fila) == 1
+}
+
+FuncAbs(F': FilaImpl) Fila {
+    F : Fila | 
+        F.fila = F'.fila (No se si se puede comparar asi las filas y colas, en caso que no aclarar que tienen mismo valores y misma posicion) &&
+        F.colados = F'.colados &&
+        F.retirados = (F'.entraron - F'.fila) - F'.atendidos &&
+        F.atendidos = F'.atendidos
+}
