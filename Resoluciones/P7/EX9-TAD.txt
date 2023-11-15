@@ -1,0 +1,62 @@
+Este tad es diferente al pedido.
+Elegi hacer para cualquier conjunto, el que eligiera el usuario
+Esto se puede hardcodear a un conjunto dado como (0,100) de manera super simple
+
+Me parecio mejor practica hacerlo asi
+
+TAD relaciones {
+    obs aRb : dict<Z, conj<Z>> 
+
+    pred condicion (a: Z,b: Z) {
+        // Puede ser una cualquiera
+    }
+
+    proc constructor(in conj: conjunto<Z>){
+        asegura {
+            res.aRb.size() == conj.size() &&
+            forAll a,b in Z : a,b in conj && condicion(a,b) ==> b in res.aRb[a] &&
+            forAll a,b in Z : !(a,b in conj) || !condicion(a,b) ==> !(b in res.aRb[a]) &&
+            forAll a in Z : a in conj ==> a in aRb 
+        }
+        
+    }
+
+    proc agregar(nuevo : Z, inout r : relaciones) {
+        requiere { !(nuevo in r.aRb) }
+        asegura {
+            old(r).aRb.size() == r.aRb.size() - 1 &&
+            forAll elem in Z : elem in old(r).aRb[elem] || elem == nuevo ==> elem in r.aRb &&
+            forAll a,b in Z : a,b in r.aRb && condicion(a,b) ==> b in r.aRb[a] &&
+            forAll a,b in Z : !(a,b in r.aRb) || !condicion(a,b) ==> !(b in r.aRb[a]) 
+        }
+    }
+
+    proc relaciones-aRb (in a: Z, in r : relaciones) : conj<Z>{
+        requiere { a in r.aRb }
+        asegura {
+            res = r.aRb[a]
+        }
+    }
+
+    proc relaciones-bRa (in a : Z, in r : relaciones) : conj<Z>{
+        requiere { a in r.aRb }
+        asegura {
+            forAll val in Z : !(val in r.aRb) ==> !(val in res) &&
+            forAll b in Z : (b in r.aRb) && (a in r.aRb[b]) ==> b in res &&
+            forAll b in Z : (b in r.aRb) && !(a in r.aRb[b]) ==> !(b in res) && 
+        }
+    }
+
+    pred InvRep(r' : RelacionesImpl){
+        aRb.size() == bRa.size() && U.size == bRa.size();
+        forAll elem in Z : elem in U <==> elem in aRb <==> elem in bRa
+    }
+
+    aux funcAbs(r' : RelacionesImpl) : Relaciones{
+        r : Relaciones | 
+            r.aRb == r'.aRb;
+            forAll b in Z : b in r.aRb ==> (r'.bRa[b] == null ==> r.relaciones-bRa(b) == {}) <=>  (r'.bRa[b] != null ==> r.relaciones-bRa(b) == r'.bRa[b]) && 
+            forAll elem in Z : elem in r'.U ==> elem in r.aRb;
+    }
+
+}
