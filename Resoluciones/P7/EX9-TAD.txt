@@ -55,8 +55,8 @@ TAD relaciones {
     aux funcAbs(r' : RelacionesImpl) : Relaciones{
         r : Relaciones | 
             r.aRb == r'.aRb;
-            forAll b in Z : b in r.aRb ==> (r'.bRa[b] == null ==> r.relaciones-bRa(b) == {}) <=>  (r'.bRa[b] != null ==> r.relaciones-bRa(b) == r'.bRa[b]) && 
-            forAll elem in Z : elem in r'.U ==> elem in r.aRb;
+            forAll b in Z : b in r.aRb ==> (r'.bRa[b] != null ==> r.relaciones-bRa(b) == r'.bRa[b]) && 
+            forAll elem in Z : elem in r'.U ==> elem in r.aRb &&
     }
 
 }

@@ -45,7 +45,7 @@ public class EX9 {
     }
 
     public TreeSet<Integer> relacionaRb(Integer a) {
-        return aRb.get(a);
+        return aRb.get(a); 
     }
 
     public TreeSet<Integer> relacionbRa(Integer a) {
