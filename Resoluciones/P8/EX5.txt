@@ -1,0 +1,33 @@
+
+
+Modulo sorter implementa SORT {
+    arr : Vector<int>.
+    quant : DictDigital<int, int> // elem, cant apariciones
+
+
+    proc constructor(arr: Array<int>) : sorter{
+        res.arr = arr
+        for(elem in Arr){ // O(n * 1) Asumiendo que el diccionario se accede en O(1)
+            res.quant[elem] = cantApariciones(elem, arr);
+        }
+        a = a.mergeSortCompCant() // Asumiendo que hace el merge segun comparacion de cantidad de apariciones
+        for(let i = 0 ; i < arr.size();i++){
+            int j = i-1
+            while(cantApariciones(arr[i]) == cantApariciones(arr[j]) && arr[j] > arr[i]){
+                int j = j-1;
+            }
+            if(arr[i] > arr[j]){
+                int aux = arr[j];
+                arr[j] = arr[i];
+                arr[i] = aux;
+            }
+        }
+
+
+
+    }
+
+    proc getArray() : Vector<int>{
+        return this.arr;
+    }
+}
