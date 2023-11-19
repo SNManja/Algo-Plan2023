@@ -1,0 +1,79 @@
+Cada dia se almacenan la cantidad de ingresantes:
+ - Grita vectores: Manejamos orden de dias y ademas necesitamos 
+   la eficiencia del indexado
+
+Puedo almacenar en otro vector la cantidad de personas ingresadas
+hasta el momento, de ahi hago cantHastaElMomento[j] - cantHastaElMomento[i]
+para calcular los ingresado en el intervalo (i,j]
+
+
+
+modulo IngresosAlBancoImpl implementa IngresosAlBanco {
+    ingresanteXdia : Vector<int>
+    totalIngresos : Vector<int>
+
+    proc nuevosIngresos() : IngresoAlBancoImpl 
+    Complejidad(O(1))
+    {
+        res.ingresanteXdia = 0;
+        res.totalIngresos = 0;
+    }
+
+    proc registrarNuevoDia(inout i: IngresoAlBancoImpl, in ingresadosHoy: int) 
+    Complejidad(O(n))
+    {
+        i.ingresanteXdia.agregarAtras(ingresadosHoy) // La insercion puede ser de maximo O(n) en caso no armotizado
+        i.totalIngresos.agregarAtras(i.totalIngresos[i.totalIngresos.size()-1] + ingresadosHoy)
+    }
+
+    proc cantDias(in i: IngresosAlBancoImpl)
+    Complejidad(O(1))
+    {
+        res = i.ingresanteXdia.size()
+    }
+
+    proc cantPersonas(in i: IngresosAlBancoImpl, in desde : int, in hasta : int)
+    Complejidad(O(1))
+    {
+        if(desde == 0){
+            res = i.totalIngresos[hasta]
+        } else{
+            res = i.totalIngresos[hasta] - i.totalIngresos[desde - 1]
+        } 
+        // Tener en cuenta que aca hago los dos casos aparte por que
+        // el intervalo de la resta seria (i,j] 
+        // Se ve a simple vista el problema con el indice i, el dia i quedaria afuera
+        // Por eso se tiene que hacer el -1
+    }
+}
+
+Entonces teniendo esto resuelto, aseguremonos que esta todo respondido correctamente:
+1. Principio del documento :)
+2. La estructura crece asintoticamente lineal. El vector se agranda de a pasos grandes (2**n), 
+pero hasta que n no llega al tope, no vuelve a agrandarse. 
+3. Es O(n) gracias a que el vector esta definido en "modulos_basicos" (checkear carpeta machetes)
+como que asintoticamente crece lineal en tama;o.
+4. Esto nos pide una mediana, el ultimo mayor dia tal que un lado sea menor a otro del total de los dias.
+En probabilidad, representaria donde se encuentra el punto que representa el 50%
+de todss las probabilidades de determinada distribucion. 
+Ahora esto nos esta pidiendo donde cae la mitad del valor total de los dias que tenemos. 
+Entonces, nos estan pidiendo el punto mas grande donde una parte es menor a la otra.
+
+Como solucionamos este dilema? Partiendo a la mitad el dia maximo.
+(i.totalIngresos[i.totalIngresos.size() - 1] / 2), llamemoslo "cotaDeBusqueda"
+Ahora hacemos una busqueda en el Vector, i.totalDeIngresos, donde totalIngresos[j] < cotaDeBusqueda.
+j seria la respuesta final
+
+proc mediana(in i: IngresoAlBancoImpl)
+Complejidad(O(n))
+Requiere { i.cotaDeBusqueda.size()>1 &&L (i.totalIngresos[0] < i.totalIngresos[i.totalIngresos.size() - 1] / 2) }
+{
+    cotaDeBusqueda = (i.totalIngresos[i.totalIngresos.size() - 1] / 2)
+    let j = 0;
+    while(i.totalIngresos[j] < cotaDeBusqueda){
+        j++;
+    }
+    res = j-1
+}
+
+El requiere es necesario, porque sino puede no existir ningun dia por debajo de la cotaDeBusqueda

@@ -1,0 +1,79 @@
+El arreglo tiene escalera en las posiciones [i ... j] siendo 1<=i<=j<=n
+si:
+1. forall k in N : i<=k<j => A[k+1] = A[k] + 1
+2. (1<i => A[i] != A[i-1]+1) && (j<n => A[j+1] != A[j]+1) 
+Esto ultimo me dice que la propiedad en las afueras del intervalo no se cumple
+
+cualquier arreglo puede ser decompuesto en secuencias de escaleras
+de manera unica.
+
+CONSULTAR !!! como de manera unica??? pueden haber dos arreglos con dif orden y mismas escaleras !!!
+
+// O(n)
+proc separadorDeEscaleras(arr: Array<Naturales>) : DictDigi<Array<Array<Naturales>>>{
+    if(arr.length == 1){
+        res.agregarAtras(arr)
+        return
+    }
+    // Nota: No se si tenia capacidad de hacer subseq de Arrays
+    // Entonces, tome la decision de hacer esto de armar un nuevo arr
+    // por cada escalera. Talvez no es la mejor decision
+
+    // O(n)
+    let save = new Array<Enteros>
+    for(int j = 2; j <= arr.length; j++){ // Arrays van de 1 a n incluido
+        if(arr[j] == arr[j-1] + 1){
+            save.agregarAtras(arr[j])
+            continue
+        } else {
+            res[save.length].agregarAtras(save) 
+            save = new Array<Enteros>();
+            save.agregarAtras(arr[j])
+            continue
+        }
+    }
+    // O(escalerasEnConjuntoDeClaves**2 * claves)
+    // Sabemos que en el peor caso que todas las escaleras sean de la misma clave.
+    // serian todas de lago 1. Eso nos daria O(n*2 * 1)
+    // Entonces O(n*2)
+    for(key in res.claves()) {
+        arr = res[key] // O(1) si es digital 
+        // Selection sort es simple
+        // Hay mejores alternativas, pero esto consume poco igualmente
+        // porque de todas formas seria el O(Escaleras en ese conjunto de claves)
+        for (let i = 0; i < arr.length; i++){
+            let min = i
+            for (let j = i+1; i < arr.length; i++){
+                if(arr[j] > arr[min]){
+                    min = j
+                }
+            }
+            if(i != min){
+                let temp = arr[i]
+                arr[i] = arr[min]
+                arr[min] = temp
+            }
+        }
+        res[key] = arr;  O(1)
+    }
+}
+
+
+// O(max(m) ∗cp(peor elem) * total de escaleras) 
+Se que max (m < n) tiempo de copiado lo tomamos como depreciable y total de las escaleras va de la mano con n.
+Dicho de manera bruta podemos asegurar que en el caso con mas escaleras hay n. Todas de un elemento.
+Pero a la vez en ese caso m = 1 siempre.
+contando todos los escaleras * su largo = n siempre. Entonces podemos decir que:
+// O(n)
+proc pasarDictAArray(in d : Dict<Array<int>>){
+    res = new Array<Naturales>
+    for(clave in d.claves()){ // O(max(m) ∗cp(peor elem) * total de escaleras)
+        for(elem in d[clave]){ // O(largo de clave)
+            res.concatenar(res, elem) // O(m ∗cp(e)) Largo elem * gasto copiar elem
+        }
+    }
+}
+
+
+La complejidad es cuadratica. Pero generalmente va a ser lineal.
+O(n**2) Omega(n)

@@ -1,3 +1,5 @@
+EL TAD ESTA ARMADO BIEN EN MODULOS BASICOS
+
 TAD ColaDePrioridad {
     OBS heap: seq<int>
     OBS size: int

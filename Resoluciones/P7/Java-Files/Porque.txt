@@ -1,0 +1,3 @@
+Cuando hice esta guia pense que nos podrian evaluar 
+la implementacion de los modulos en java. Me equivoque, no es asi.
+Los modulos tienen que ser implementados como fueron dados en clase.

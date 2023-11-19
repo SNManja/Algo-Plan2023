@@ -1,0 +1,42 @@
+Ejercicio 3.
+Escribir un algoritmo que encuentre los k elementos m ́as chicos de un arreglo de dimension n, donde k ≤n.
+¿Cu ́al es su complejidad temporal? ¿A partir de qu ́e valor de k es ventajoso ordenar el arreglo entero primero?
+
+
+La forma mas simple seria hacer una copia del array (O(n))
+(en caso que sea pasado por ref y no quiera ser modificado)
+
+Ahi vamos haciendo selection sort por k elemntos.
+
+proc sortingHastaK(in arr, in k)
+Complejidad(O(k*n)) con k <= n siempre.
+{
+    let i = 0
+    while (i < k) {
+        j = i
+        min = i
+        while(j < arr.length()) 
+        // Complejidad = O(n-i). O(n) asintotica. 
+        {
+            if(arr[j] < arr[min]){
+                min = j
+            }
+        }
+        if(i != min){
+            temp = arr[i]
+            arr[i] = arr[min] 
+            arr[min] = temp
+        }
+        i++
+    }
+    // Si puedo cortar el length del array en O(1), lo corto.
+    // Si no, el usuario va a tener los primeros k elementos ordenados siempre.
+
+    return arr
+}
+
+Aca siempre estoy usando el sorting. 
+Podria cambiar de metodo de sorting dependiendo de la cantidad de k
+Siendo que O(n*log(n)) puede ser mas chico que O(n*k).
+Me conviene usar este metodo cuando k < log(n). 
+Caso contrario conviene mergeSort y listo.

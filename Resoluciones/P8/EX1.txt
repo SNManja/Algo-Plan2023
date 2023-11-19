@@ -1,0 +1,73 @@
+Ejercicio 1. Comparar la complejidad de los algoritmos de ordenamiento dados en la teorica 
+para el caso en que el arreglo a ordenar se encuentre perfectamente ordenado de manera inversa a la deseada
+
+
+1. Selection sort
+9 8 7 6 5 4 3 2 1
+1 8 7 6 5 4 3 2 9
+1 2 7 6 5 4 3 8 9
+1 2 3 6 5 4 7 8 9
+1 2 3 4 5 6 7 8 9 
+Aca checkearia en la posicion 4, veria que no hay ninguno menor. Terminaria el algoritmo
+(n/2)*(n-1) Hago una busqueda en n-1 elementos en el peor caso en la mitad de los elementos.
+Se mantiene n**2
+
+2.
+Insertion sort
+9 8 7 6 5 4 3 2 1
+8 9 7 6 5 4 3 2 1
+7 8 9 6 5 4 3 2 1
+...
+Aca vemos que por cada elemento tiene que colocar al final. Es el peor caso. n**2
+
+3. Heap sort
+9 8 7 6 5 4 3 2 1 
+
+Arr2Heap / floyd O(n)
+9 8 7 6 5 4 3 2 1  // Posicion 8//2 => 4
+9 8 7 6 1 4 3 2 5  // Posicion 4//2 => 2
+9 8 1 6 5 4 3 2 7  // Bajamos todo lo necesario
+1 8 5 6 7 4 3 2 9  // Denuevo, reordenamos
+1 8 5 2 7 4 3 6 9  // Posicion 7//2 => 3
+1 2 5 6 7 4 3 8 9   // Posicion 3//2 =>1 .
+1 2 3 6 7 4 5 8 9  // Ahi es un heap valido
+
+Ahora por cada valor sacamos y lo vamos poniendo en otro arr ( se puede hacer en el mismo pero pinto asi )
+n elementos * log(n) x elemento, O(n*log(n))
+
+
+4. Merge sort
+        9 8 7 6 5 4 3 2 1 
+      9 8 7 6       5 4 3 2 1
+  9 8     7 6       5 4       3 2    1
+  8 9     6 7       4 5       2 3    1   // La division esta es Log(n) porque las veces q puedo partir algo 2 veces tiene conexion directa con el logaritmo. Luego por cada mitad hay una comparacion
+      6 7 8 9       1 2 3 4 5  
+        1 2 3 4 5 6 7 8 9               // La union  tarda n. Porque en todos tengo q mover los elementos para colocarlos al principio
+
+Se mantiene igual O(n*log(n))
+
+5. Quicksort
+
+9 8 7 6 5 4 3 2 1
+1 8 7 6 5 4 3 2 9. Tomamos el mas grande O(n) y acomodamos
+Depende de cual tomemos ahora. En este caso si tomamos justo el del medio
+Nos asegura que al menos en el primer caso vamos a elegir el mejor pivote
+
+i       p     j
+1 8 7 6 5 4 3 2 9
+
+  i     p     j
+1 2 7 6 5 4 3 8 9
+
+    i   p   j
+1 2 7 6 5 4 3 8 9
+
+    i   p   j
+1 2 3 6 5 4 7 8 9
+
+      i p j
+1 2 3 4 5 6 7 8 9 // Si checkea aca si esta ordenado, es O(n)
+En caso que no checkee y siga abriendose, va a ser O(nlog(n))
+Hasta ahora hicimos n/2 comparaciones aproximadamente, mas n de buscar el mayor
+Por ende se podria mantener lineal si asumimos que checkeamos antes de seguir abriendo
+

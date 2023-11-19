@@ -1,0 +1,38 @@
+Ejercicio 13. SUECO
+
+
+Sistema unificado de estadisticas de colectivos y omnibuses
+Puntos claves:
+- Genera estadisticas de boletos expedidos y cantidad de plata electronica en periodo de tiempo
+- Boletos no ordenados cronologicamente. Los boletos tienen precio y cuando se saco
+- Consultas dan intervalo y se debe responder la cantidad expedida de boletos o plata recaudada
+
+
+Se pide una estructura que nos permita:
+- agregarBoleto en O(n)
+- #Intervalo en O(log n) 
+Donde n es la cantidad de boletos agregados hasta el momento
+
+1. Describir estructura a utilizar.
+
+Para cantidad intervalo, nos estan preguntando cuantos boletos hay en un intervalo.
+Para agregar boleto podemos ordenar, ya que el constructor empieza con todo vacio
+Sin drama podriamos asignar cada elemento en tiempo O(n) y mantener todo ordenado segun el tiempo
+Luego teniendo esto, con busqueda binaria se consiguen los indices bordes en el array. Eso seria O(2log(n)).
+Teniendo esto se hace una resta y se consigue el valor.
+Depende de como hagamos la busqueda binaria, seria diferente, pero imaginemos que buscamos el primer valor q no cuenta en ambos lados
+(i, j) asumiendo que i < j => rta = j - i 
+
+2. Para ambas operaciones, explicar como se usa la estructura
+de manera de cumplir con la complejidad pedida. Pseudocodigo optativo
+
+3. Agregar lo que sea necesario para proveer la operacion plataIntervalo
+en O(log n). Describa modificacion de la estructura, a las operaciones del
+punto anterior que precisen modificaciones y la forma de implementar plataIntervalo
+
+Se puede hacer lo mismo que antes pero con otro array q mantenga ordenado por plata y ahi hacer busqueda binaria denuevo.
+
+
+modulo SUECOImpl implements SUECO {
+    // Tremenda vagancia implementarlo. Talvez luego lo hago
+}

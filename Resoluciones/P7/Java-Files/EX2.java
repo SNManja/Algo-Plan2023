@@ -1,4 +1,3 @@
-package P7;
 
 // NOTA: en la mayoria de casos me equivoque y tome la complejidad como si fuera una sola variable.
 // Eso esta mal, claramente. Fuera del ultimo ejercicio que le di algo mas de bola.

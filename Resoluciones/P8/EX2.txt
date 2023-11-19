@@ -1,0 +1,24 @@
+Ejercicio 2. Imagine secuencias de naturales de la forma s = Concatenar (s′, s′′), donde s′es una secuencia ordenada de
+naturales y s′′ es una secuencia de naturales elegidos al azar. ¿Qu ́e m ́etodo utilizar ́ıa para ordenar s? Justificar.
+(Enti ́endase que s′se encuentra ordenada de la manera deseada.)
+
+
+Depende como enfoquemos el problema. Asumiendo que no sabemos que s esta como esta
+y que no podemos modificar el algoritmo y hacerlo algo especifico. 
+- Selection sort, descartado: Siempre O(n**2)
+- Insertion sort. Seria O(n) hasta la mitad del arreglo, despues O(n**2)
+- Merge sort. No vamos a poder hacer que sea mas chico que O(n**log(n))
+- Quick sort. No creo q convenga. Mas si no sabemos que pivote tomamos.
+
+A simple vista, parece mergeSort el mas eficiente mirandolo asinoticamente
+Ahora si podemos modificar:
+nota: n = |s'++s''| = |s|
+- Selection sort. Descartadisimo
+- Insertion sort, lo mismo que con selection. Solo que en este seria mas eficiente aun.
+En este caso, tendriamos la mitad de comparaciones pero las insersiones serian igual horrendas
+O(n/2**|s''|) Sigue igual asintoticamente
+- Merge sort: Tenemos la ventaja de poder descartar la parte de s' hasta el momento de merge
+O(n**|log(s'')|)
+- Quick sort: No podemos mejorar su eficacia sabiendo que la mitad de los valores estan ordenados.
+
+El mejor seria mergesort. Nos ahorramos tener que ordenar la cantidad de valores que tenga s'

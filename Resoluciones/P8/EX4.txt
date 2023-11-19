@@ -1,0 +1,23 @@
+Ejercicio 4.
+
+Podriamos hacer algo similar a un counting sort, pero en este caso, prendiendo una bandera true en caso que este el elemento.
+
+max y min sum los consigo en O(n), pasando por cada secuencia y viendo el primer y ultimo elem
+con eso me armo un array<boolean> que incializa en false de largo max - min.
+
+
+// O(sum |s_i|) (suma del largo de todas las listas)
+Ahora atravezamos cada lista s_i con (0<=i<=n) y por cada elemento (llamemosle k)
+arrBool[k-min] = true
+
+
+Por si no queda claro a simple vista, estamos armando un set!
+Podriamos haber usado estructura de set tambien, pero ya que estamos con esto vamos a liquidarlo.
+
+// O(max-min)
+Como reconstruimos? Pasamos por cada uno de todos los valores del arrBool. 
+Si val = true entonces agregamos el elemento (val+min) al nuevo array<int> res  
+
+La complejidad de esta operacion termina siendo el largo de todas las secuencias sumado.
+// O(sum |s_i|) (suma del largo de todas las listas)
+

@@ -1,0 +1,126 @@
+TAD Texto.
+- Textos en espa;ol
+- Operaciones deben cumplir con complejidad pedida:
+    - subtexto(in t: Texto, in desde : int, in hasta : int) : Texto
+        Devuelve texto correspondiente O(Hasta-desde)
+    - cambiarPalabra(inout t: Texto, in vieja : Palabra, in nueva : Palabra) 
+        Cambia todas las ocurrencias vieja por nueva. O(k). K es cant de veces que se repite la palabra a cambiar
+    - masRepetidas (in t: texto) : Conjunto <Palabra>
+        Devuelve conjunto de palabras que mas se repiten. O(1). Puede generar aliasing.
+
+1. Describir estructura a utilizar
+Tiene pinta de que:
+- Para el texto como tengo orden y requiero de eficiencia temporal
+me va a convenir usar Vector.
+- Al estar implementado, el tama;o del alfabeto se acota, entonces la busqueda por diccionarioDigital
+termina siendo O(1). Con esto puedo hacer un diccionarioDigital<Palabra, Vector<int>> donde cada valor
+en el vector es un indice
+- masRepetidas lo podemos precalcular al ir agregando
+
+
+modulo TextoImpl implements Texto {
+    txt : Vector<String>
+    wordIndex : diccionarioDigital<String, Vector<int>> // Aca elegi vector envez de conjunto porque es mas facil atravezarlo
+    masRepetidas : conjuntoDigital<String>
+    repeticiones : diccionarioDigital<String, int>
+    masRepCant : int;
+
+    proc nuevoTexto(out res : TextoImpl) 
+    Complejidad(O(1))
+    {
+        res.txt = new Vector<String>();
+        res.wordIndex = new diccionarioDigital<String, Vector<int>>();
+        res.masRepetidas = new conjuntoDigital<String>();
+        res.masRepCant = 0;
+        res.repeticiones = new conjuntoDigital<String>();
+    }
+
+    proc agregarPalabra(inout t: TextoImpl, p: Palabra)
+    Complejidad(O(n))
+    {
+        t.txt.agregarAtras(p) // O(n)
+        if(p in t.wordIndex){ // O(1) simplificando
+            t.wordIndex[p] = t.wordIndex[p].agregarAtras(t.txt.longitud - 1) // O(repeticiones por el momento de la palabra)
+        } else {
+            t.wordIndex[p] = new Vector<...>();
+            t.wordIndex[p].agregarAtras(t.txt.longitud - 1) ;
+        }
+        if(p in repeticiones){
+            t.repeticiones[p] += 1
+        } else {
+            t.repeticiones[p] = 1
+        }
+        if(t.masRepCant == t.repeticiones[p]) {
+            t.masRepetidas.add(p)
+        } else if (t.masRepCant < t.repeticiones[p]){
+            t.masRepCant = t.repeticiones[p]
+            t.masRepetidas = new conjuntoDigital<String>();
+            t.masRepetidas.add(p)
+        }
+    }
+
+    proc cambiarPalabra(inout t: Texto, p : Palabra, nueva : Palabra)
+    Complejidad(O(k)) 
+    Funciona asi casi siempre menos en casos en los que, por ejemplo, solo hay una repeticion de todas las palabras en un texto largo
+    En ese caso se ve acotado por el acceso al diccionario. Si lo tomamos como constante se soluciona el problema.
+    {
+        for(int i in t.wordIndex[p]) { // O(repeticiones palabra)
+            t.txt[i] = nueva
+        }
+        t.repeticiones[nueva] = t.repeticiones[p]
+        t.repeticiones.borrar(p)
+
+        if(p in masRepetidas){
+            t.masRepetidas.borrar(p) // O(Tama;o dict)
+            t.masRepetidas.agregar(nueva)
+        } 
+        t.repeticiones[nueva] = t.repeticiones[p]
+        t.repeticiones.borrar(p)
+    }
+
+    proc posiciones(in t: texto, in p: Palabra)
+    Complejidad(O(1))
+    {
+        res = t.repeticiones[p]
+    }
+
+    proc subtexto(in t: texto, in desde: texto,in hasta: texto)
+    Complejidad(hasta-desde)
+    Requiere { hasta y desde en rango }
+    {
+        res = Vector<String>()
+        while(desde > hasta){
+            res.agregarAtras(t.txt[desde])
+            desde++
+        } // Esto es asumiendo que hasta es una cota cerrada
+
+    }
+
+
+    proc masRepetidas(in T : TextoImpl) 
+    Complejidad(O(1))
+    {
+        res = t.masRepetidas
+    }
+
+    proc masApariciones (s : Vector<Palabra>, p : Palabra)
+    Complejidad(O(s)) Asumiendo q el diccionario accede en O(1)
+    {
+        max : int = 0
+        save = diccionarioDigital<String, int>
+
+        for (elem in s){
+            if(elem in save ){
+                save[elem] += 1
+            } else {
+                save[elem] = 1
+            }
+            if(save[elem] > max){
+                max = save[elem]
+            }
+        }
+
+        return save[p] == max
+        
+    }
+}
