@@ -1,0 +1,29 @@
+Ejercicio 14.
+
+Se tiene un arreglo A de n nums nat y un entero k.
+
+quiero obtener un arr B de n x k nats que tenga todo elem
+de a multiplicado por todos los numeros entre 1 y k.
+
+1. 
+
+Se puede hacer con un heap que vaya agregadno tras cada extraccion
+el heap tiene que tener como nodo un struct con .valor .k .multAct
+por cada extraccion se multiplica el valor, se agrega uno a multAct 
+(a menos que pase k).
+Tanto el sacar como el poner en el heap va a valer log(n)
+esto lo tenemos que hacer hasta qeudarnos sin elementos.
+Dejandonos con n*k veces que vamos a extraer del heap
+O(n*klogn)
+
+
+Pensandolo similar al merge. Se ordena el array y se hace uno
+grande de n*k elementos. De ahi se hacen punteros a cada indice n*(k-1) 
+y se van sacando como colas de prioridad.
+Ordenar cuesta nlogn
+hacer el array cuesta nk
+poppear de cada cola de prioridad cuesta nk
+termina quedando O(nlogn+2nk) => O(nlogn+nk)
+como queremos acotarlo por O(nklogn) y sabemos que
+O(nlogn)< O(nklogn) y O(nk) < O(nklogn). Ganamos
+

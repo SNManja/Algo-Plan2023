@@ -1,0 +1,68 @@
+Dos arreglos naturales
+Van de A[1..n] y B[1..m]
+
+No se sabe nada de B
+pero A tiene n' secuencias de numeros rep continuos
+A = [3,3,3,3,3,1,1,1,1,8,8,8,8,8,7,7,7,7,1,1,4,5,5,5,5]
+n'=7
+Se desea obtener un arreglo C de tama;o n + m
+que contenga los elementos de A y B ordenados
+
+1. Escriba un algoritmo para obtener C que tenga complejidad
+temporal O(n + (n′+ m) log(n′+ m))
+
+Podria usar un metodo a lo counting sort.
+Eso me tomaria O(n) + O(m) = O(n+m) 
+Eligiria un diccionario que me almacene el array con todos los valores
+Depende diccionario. Con uno digital seria O(1) amortizado cada acceso.
+
+Luego armo un vector de largo n+m
+y el loopear por cada valor del diccionario seria O(n'+ m)
+ya agregar al final del vector C seria O(1) amortizado.
+
+En total este algoritmo seria de O(n+m) + O(n'+m) = O(n + n'+ m)
+Con un overhead pesado en almacenamiento. Teniendo en cuenta que vamos a tener un diccionario
+que luego ocupa la misma cantidad de espacio en elementos que C
+sin contar el espacio de la implementacion del diccionario.
+
+
+1. Re planteo:
+Ahora. Cual es el algoritmo que pide el ejercicio?
+O(n + (n′+ m) log(n′+ m))
+
+Puedo hacer counting sort de A. Eso me demora O(n)
+Mientras a la vez hago un array con cada uno de los elem de n' solo 1 vez
+
+De ahi aplico mergeSort a A sin repetidos ++ B
+Eso seria (n'+m)log(n'+m)
+
+Ahora una vez todo este sorteado hago busqueda lineal de los valores de A
+y le agrego los repetidos
+O(n'*log(n'+m))
+
+O( n + (n'+m)log(n'+m)+ n'*log(n'+m) )
+como  (n'+m)log(n'+m) > n'*log(n'+m) 
+O( n + (n'+m)log(n'+m))
+
+2.  O(n + n'log(n') + n'*m)
+Puedo imitar la funcionalidad del diccionario para el counting en arrays
+
+Hago un array de arrays con n' elementos // O(n)
+y donde cada elemento es un array [valor elem, cant apariciones]
+
+ahora puedo ordenar este arreglo por el primer valor
+de cada elemento (mergesort) // O(n'*log(n'))
+
+atraviezo B y por cada elemento, lo busco en este nuevo arreglo y lo agrego a la cuenta
+
+Luego reconstruyo el arreglo res en O(n+m), asumiendo que en el agregar elentos
+se hace en O(1).
+
+Queda finalmente 
+O(n) + O(n'log(n')) + O(n'*m) + O(n+m)
+Podria decir que O(n+m) = O(n) + O(m) y O(n'*m) > O(m) => O(n+n'*m)
+
+
+
+
+

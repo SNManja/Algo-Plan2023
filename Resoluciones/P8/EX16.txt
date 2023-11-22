@@ -1,0 +1,7 @@
+Se tiene un arreglo A de n numeros naturales.
+Sea m = max{A} el maximo del arreglo.
+encontrar un algoritmo qeu ordene el arreglo en O(n log m)
+
+Teniendo una cota puedo hacer counting sort. Es O(n) < O(n log m)
+
+Ni idea la verdad AYUDAAAAAAAAAAAAAAAA

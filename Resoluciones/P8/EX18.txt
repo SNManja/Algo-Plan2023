@@ -1,5 +1,5 @@
 
-
+1.
 proc counting(int[] arr) : int[]{
     count : int[arr.length()] = Array<int>(){0};
     res : int[arr.length()] = Array<int>();
@@ -20,3 +20,9 @@ proc counting(int[] arr) : int[]{
         i++;
     }
 }
+
+2. 
+Con un diccionario digital como bucket saldria . No creo que sea la idea del ej.
+RADIX SORT??? no estuve en clase cuando explicaron este ejemplo.
+
+3.

@@ -1,0 +1,24 @@
+Ej 12.
+
+Datos generador por sensor industrial, monitorea sustancia.
+- Cada medicion es un Int positivo.
+- Dada sec de n mediciones,floor(sqrt(n)) esta fuera del rango
+[20,40]
+
+Proponer algoritmo O(n) que permita ordenar ascendentemente 
+una secuencia de mediciones y justificar complejidad
+del algoritmo propuesto.
+
+Entonces:
+Puedo atravezar el array, guardar elementos en un bucket para 
+hacer counting sort
+Los elementos que sobran los mando a un array. Se que en peor caso
+son sqrt(n) log(sqrt(n))
+Tengo que verificar que O(sqrt(n) log(sqrt(n))) < O(n). Si es asi gane.
+
+Se que O(sqrt(n)*sqrt(n))== O(n) y que O(log(n)) < O(sqrt(n)). Tambien es trivial
+ver que O(log(n)) > O(log(sqrt(n)))
+
+Entonces:
+  O(sqrt(n) * log(sqrt(n))) <  O(sqrt(n) * log(n)) < O(sqrt(n)*sqrt(n)) == O(n) 
+ 

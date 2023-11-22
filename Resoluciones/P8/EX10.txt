@@ -1,0 +1,30 @@
+casiSort.
+
+1. 
+podria llamar al algoritmo recursivamente, acortando a la mitad.
+De ahi voy a tener varias secciones ordenadas menos 2 elementos.
+Esos dos los ordeno a mano
+Complejidad seria O(casiSort * log(n))
+
+de ahi me queda hacer un merge a lo mergesort
+o viendolo como colas de prioridad.
+Complejidad seria n*k siendo k la cantidad
+de veces que ejecute el algoritmo de casiSort.
+Como se acorto por la mitad cada vez es O(n*log(n))
+
+2.
+Asumiendo eso seria total O(n*log(n))
+
+3.
+No creo que se pueda.
+Para ordenar tenemos que comparar y recolocar.
+Para n/2 elementos vamos a tener que comparar un numero
+lineal de veces.
+Ahora, para recolocar vamos a tener que comparar de una
+manera u otra para poder ver donde se vuelve a poner el elemento
+
+El acortarnos la cantidad de elementos a n/2 no nos cambia en nada, 
+sigue siendo un espacio lineal. 
+
+Hay algoritmos que pueden ordenar en tiempo O(n), pero no requieren comparaciones
+y el ejercicio justamente pide O(n) comparaciones

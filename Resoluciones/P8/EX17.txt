@@ -1,0 +1,4 @@
+Se tiene un arreglo de elementos no repetidos A[1..n] tq
+se sabe que para todo i hay a lo sumo i elementos mas chicos que
+A[i] en todo el arreglo. 
+

@@ -1,0 +1,34 @@
+Dado un conjunto de naturales.
+Diremos que un agujero es un natural x tq el conjunto
+no contiene x y contiene un elem mayor y menor q x
+
+a. 
+Implementar en O(n)
+
+De entrada puedo calcular el menor y mayor, seguro me sirven.
+
+
+proc tieneAgujero? (in a: array<nat>): bool 
+Complejidad O(n)
+{
+    min = min(a) // O(n)
+    max = max(a) // O(n)
+
+    arr = countingSort(a, min, max) // Quiero el minmax porque asi tengo cota de elemntos
+    // O(n)
+
+    for(let i = 1; i<arr.length; i++){ // O(n)
+        if(arr[i] != arr[i-1] + 1){
+            return true
+        }
+    }
+    return false
+}
+
+2. 
+Calcular el maximo y minimo es O(n)
+Al tener un conjunto acotado puedo hacer counting sort
+de ahi el problema se hace simple, tengo que ver si en algun
+momento no se cumple mas la escalera
+
+Estaria bueno buscar una solucion sin counting

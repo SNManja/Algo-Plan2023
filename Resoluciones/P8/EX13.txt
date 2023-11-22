@@ -1,0 +1,35 @@
+A[1...n] de T
+donde T son tuplas <c_1:nat, c_2:string[l]>
+string[l] son strings de long max l
+
+La comparacion de nats toma O(1)
+La comparacion de String[l] toma O(l)
+
+Se ordena A en base a la segunda componente y luego
+la primera.
+
+1.
+Escribir algo complejidad O(nl + nlog(n))
+
+puedo ordenar primero el array basandome en el fst
+de la tupla (los naturales) O(nlog(n))
+
+
+ACA ME HABIA EQUIVOCADO BAJAR /*
+Ahora atraviezo el array O(n) y guardo en buckets
+basandome en el largo de la string. 
+Esto va a requerir n*l comparaciones. O(n*l)
+
+Luego la reconstruccion final es atravezar las keys
+en orden appendeando cada value al final de res O(l)
+*/
+
+Ahora uso radix sort estable.
+Importante mantener el orden de los naturales.
+eso seria n*l siendo l la base
+
+2.
+Si hago primero couting sort de los naturales 
+me qeuda O(n) + O(nl)
+
+

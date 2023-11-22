@@ -1,0 +1,56 @@
+Estructura para guardar notas de alumno de un curso
+
+Alunno : Arreglo 
+Las mujeres tienen que aparecer al principio
+En cada sexo, ordenado en orden creciente de notas
+
+Complejidad temportal de O(n)
+
+1.
+Primero, tener 2 diccionarios. Uno de mujeres y otro de hombres
+
+Itero el array principal, almaceno en el diccionario con
+Key = nota - Value = nombre alumno
+Incluso con esto mantenemos orden de nombres
+
+Ahora en el array res = []
+voy agregando al final, primero paso por el de mujeres y agrego en orden de notas
+luego lo mismo con el de hombres
+
+2. 
+En este caso puedo hacer lo mismo con dict de 2 dimensiones
+donde dict[genero][nota] da el array con alumnos
+
+3. 
+Claro, la contradice en algoritmos generalizados. 
+Cuando hablamos de algoritmos de proposito especifico se puede bajar la cota.
+
+
+Ahora implementemos 
+
+GEN : Int
+Nota: Int
+alumno : (nombre : string, genero: GEN, puntaje: Nota)
+proc notasCurso (in arr: arr<alumno>) : arr<alumno> 
+Complejidad(O(n))
+{
+    // Diccionario es dictDigital
+    count = new dict<dict<Vector<alumno>>>(); // Init in []
+
+
+    for(alum in arr)
+    Complejidad(O(n))
+    {
+        count[alum.genero][alum.puntaje].agregarFinal(alum)
+    }
+
+
+    for(gen in count.keys())
+    Nota: sabemos que generos en arr < n asi que no afecta a la complejidad general
+    Complejidad(O(gen*10) = O(gen en array))
+    { // Keys tienen que estar en orden!
+        for(int nota = 1 ; nota <= 10; ++){ // O(10) 
+            res.append(count[gen][nota]) // O(1)
+        }
+    }
+}

@@ -1,0 +1,7 @@
+Ej 11.
+
+A[1...n] es arreglo de naturales (todo valor esta entre 1 y k)
+
+Ya a lo largo de toda la guia vengo abusando de counting sort.
+Es la respuesta mas simple. 
+
