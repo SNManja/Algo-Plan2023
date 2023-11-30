@@ -1,0 +1,15 @@
+preguntar sobre:
+justificación de complejidad de tries, counting sort, radix sort y merge sort.
+
+hay que hacer los algoritmos de sorting?
+y búsqueda binaria? podría poner
+BS(valor, arr) y que me devuelva si está o no? o tengo que implementarla?
+
+el usar terminología similar a la de los módulos pero no usar específicamente los dados (por ej Array envez de vector) es válido? o debemos atarnos estrictamente a la definición Dada?
+
+cuando puedo y cuando no abusar de counting y radix? cuando tengo una cota general de los valores?
+
+vale la pena argumentar complejidades por límites? y las de 2 variables? 
+
+Que se va a poder llevar al examen?
+
